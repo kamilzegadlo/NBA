@@ -1,0 +1,121 @@
+﻿@using System.Data.Common
+@model NBAWebPage.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "NBA";
+}
+
+<div class="jumbotron">
+    <h1>NBA</h1>
+</div>
+
+<div class="row">
+    <table id="PropertyAdGrid" class="table table-hover">
+        <tr class="success">
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().Stadium)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().Logo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().Played)
+            </th>
+            <th>
+                <button type="button" ng-class="{'btn ':true,' btn-success': chartType!=2}" ng-click="chartType=1">
+                    @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().Won)
+                </button>
+            </th>
+            <th>
+                <button type="button" ng-class="{'btn ':true,' btn-success': chartType==2}" btn-primary ng-click="chartType=2">
+                    @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().Lost)
+                </button>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().PlayedHome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().PlayedAway)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().BiggestWin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().BiggestLoss)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().LastGameStadium)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().LastGameDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statistics.FirstOrDefault().MVP)
+            </th>
+            <th></th>
+        </tr>
+
+        @{ int iItem = 0;
+           foreach (var item in Model.Statistics)
+         {
+            <tr >
+                <td >
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td >
+                    @Html.DisplayFor(modelItem => item.Stadium)
+                </td>
+                <td >
+                    <a href="@Url.Content(item.WebPageURL)"> <img src="@Url.Content(item.Logo)" alt="Sample Image" width="100px" /></a>
+                </td>
+                <td >
+                    @Html.DisplayFor(modelItem => item.Played)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Won)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayedHome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayedAway)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BiggestWin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BiggestLoss)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastGameStadium)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastGameDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MVP)
+                </td>
+            </tr>
+                    ++iItem;
+         }
+        }
+
+    </table>
+    <div>
+
+        <div ng-show="chartType!=2">
+            @(Model.WonChart))
+        </div>
+
+        <div ng-show="chartType==2">
+            @(Model.LostChart))
+        </div>
+        
+    </div>
+</div>
